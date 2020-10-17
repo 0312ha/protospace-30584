@@ -27,7 +27,7 @@ class PrototypesController < ApplicationController
   def edit
     @prototype = Prototype.find(params[:id])
     unless current_user == @prototype.user
-      redirect_to root_path
+      redirect_to edit_prototype_path
     end
   end
   
