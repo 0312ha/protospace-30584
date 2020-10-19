@@ -10,7 +10,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-      @prototype = Prototype.create(prototype_params)
+    @prototype = Prototype.new(prototype_params)
     if @prototype.save
       redirect_to root_path
     else
@@ -21,13 +21,13 @@ class PrototypesController < ApplicationController
   def show
     @prototype = Prototype.find(params[:id])
     @comment = Comment.new
-    @comments = @prototype.comments
+    @comments = @prototype.comments.includes(:user)
   end
 
   def edit
     @prototype = Prototype.find(params[:id])
     unless current_user == @prototype.user
-      redirect_to edit_prototype_path
+      redirect_to root_path
     end
   end
   
